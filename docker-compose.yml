@@ -1,0 +1,73 @@
+services:
+  app:
+    build:
+      target: dev
+      context: .
+      dockerfile: ./build/app/Dockerfile
+    container_name: "${PROJECT_NAME}-app"
+    working_dir: "/var/www/project"
+    env_file:
+      - .env
+    volumes:
+      - "$SYNC_PATH:/var/www/project:cached"
+      - ~/.ssh:/root/.ssh # Forward local machine SSH key to docker
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      SSH_AUTH_SOCK: /ssh-agent
+    ports:
+      - "8080:8080"
+    networks:
+      web:
+        aliases:
+          - "${PROJECT_NAME}.${DOMAIN_SUFFIX}"
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=web
+      - "traefik.http.routers.${PROJECT_NAME}-app.rule=Host(`${PROJECT_NAME}.${DOMAIN_SUFFIX}`)"
+      - "traefik.http.routers.${PROJECT_NAME}-app.entrypoints=web"
+      - "traefik.http.services.${PROJECT_NAME}-app.loadbalancer.server.port=8080"
+      - "traefik.http.services.${PROJECT_NAME}-app.loadbalancer.server.scheme=http"
+
+  mariadb:
+    image: mariadb:10.11.2
+    restart: unless-stopped
+    container_name: ${PROJECT_NAME}-mariadb
+    environment:
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./build/db/orm/init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 33063:3306
+    networks:
+      - web
+
+  redis:
+    image: redis:7.0.1
+    ports:
+      - '6378:6379'
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass "$${REDIS_PASSWORD:?REDIS_PASSWORD variable is not set}"
+    env_file:
+      - .env
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=redis"
+      - "traefik.frontend.rule=PathPrefixStrip:/redis"
+      - "traefik.port=6378"
+      - "traefik.protocol=redis"
+
+volumes:
+  mariadb_data:
+
+networks:
+  web:
+    external: true
