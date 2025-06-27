@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker
+        run: docker compose up -d --build
+
+      - name: Run PHPStan
+        run: docker compose exec -T app sh -c "vendor/bin/phpstan analyse"
+
+      #- name: Run PHPUnit
+      #  run: docker compose exec -T app sh -c "vendor/bin/phpunit"
