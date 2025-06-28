@@ -1,0 +1,11 @@
+parameters:
+  paths:
+    - src
+  level: max
+  doctrine:
+    objectManagerLoader: phpstan-object-manager.php
+  ignoreErrors:
+    - '#Internal error: Cannot instantiate custom generator#'
+    - '#while analysing file .*Entity.*#'
+  reportUnmatchedIgnoredErrors: false
+  
