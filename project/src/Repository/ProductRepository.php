@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repository;
 
 use App\Entity\Product;
@@ -24,8 +25,8 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->findAll();
     }
-    
-        
+
+
     /**
      * create
      *
@@ -34,16 +35,10 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function create(ProductPayload $payload): Product
     {
-        $product = new Product(
-            $payload->name,
-            $payload->description,
-            $payload->price
-        );
-
+        $product = new Product($payload->name, $payload->description, $payload->price);
         $em = $this->getEntityManager();
         $em->persist($product);
         $em->flush();
-
         return $product;
     }
 }

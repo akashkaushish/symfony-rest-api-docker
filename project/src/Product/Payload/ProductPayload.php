@@ -11,11 +11,10 @@ final class ProductPayload
     public function __construct(
         #[Assert\NotBlank]
         public readonly string $name,
-
         #[Assert\NotBlank]
         public readonly string $description,
-
         #[Assert\Positive]
         public readonly float $price,
-    ) {}
+    ) {
+    }
 }
