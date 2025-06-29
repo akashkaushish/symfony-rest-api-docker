@@ -1,11 +1,12 @@
 <?php
+
 // src/Product/ProductPresenter.php
 namespace App\Product;
 
 use App\Entity\Product;
 
 class ProductPresenter
-{    
+{
     /**
      * present
      *
@@ -23,7 +24,7 @@ class ProductPresenter
         ];
     }
 
-    /** 
+    /**
      * @param Product[] $products
      *  @return  array<array{name: string, url: string, description: string|null, price: float}>
      *  */

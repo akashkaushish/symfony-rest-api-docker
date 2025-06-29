@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Product;
+
 use App\Product\Payload\ProductPayload;
 
 interface ProductStorageInterface

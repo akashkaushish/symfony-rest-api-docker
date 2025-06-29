@@ -37,7 +37,6 @@ class Product
     public function getId(): ?Uuid
     {
         return $this->id;
-        
     }
 
     public function getName(): string
@@ -59,5 +58,4 @@ class Product
     {
         return $this->createdAt;
     }
-
 }
