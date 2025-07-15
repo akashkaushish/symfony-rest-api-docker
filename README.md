@@ -1,4 +1,4 @@
-# symfony-rest-api-docker
+# symfony-rest-api-docker-and-redis
 Rest Apis Development with Symfony 6 and docker 
 
 
