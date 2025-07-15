@@ -5,12 +5,13 @@
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'default')]
-    public function index(): string
+    public function index(): Response
     {
-        return "we are here to make APIS";
+        return new Response("we are here to make APIS");
     }
 }
