@@ -27,4 +27,4 @@ jobs:
         run: docker compose exec -T app composer phpstan
 
       - name: Run PHPUnit
-        run: docker compose exec -T app sh composer phpunit
+        run: docker compose exec -T app composer phpunit
