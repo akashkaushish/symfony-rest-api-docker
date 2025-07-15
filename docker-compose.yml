@@ -11,7 +11,7 @@ services:
     volumes:
       - "$SYNC_PATH:/var/www/project:cached"
       - ~/.ssh:/root/.ssh # Forward local machine SSH key to docker
-      - ./phpunit.xml:/var/www/phpunit.xml
+      - ./phpunit.xml:/var/www/project/phpunit.xml
     extra_hosts:
       - host.docker.internal:host-gateway
     environment:
