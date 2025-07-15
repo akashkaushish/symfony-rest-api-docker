@@ -7,7 +7,6 @@ namespace App\Controller\Api;
 use App\Product\Payload\ProductPayload;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Product\ProductStorageInterface;
-use App\Rohit\RohtiInterface;
 use Symfony\Component\HttpFoundation\{JsonResponse, Response};
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -23,7 +22,7 @@ final class ProductController extends AbstractController
     public function getProducts(): JsonResponse
     {
         $products = $this->productStorage->fetchAll();
-//dd($products);
+
         return new JsonResponse([
         'count'    => count($products),
         'next'     => null,
