@@ -1,1 +1,1 @@
-{"version":1,"defects":{"App\\tests\\Unit\\Controller\\DefaultControllerTest::testIndexReturnsExpectedString":4},"times":{"App\\tests\\Unit\\Controller\\DefaultControllerTest::testIndexReturnsExpectedString":1.44}}
+{"version":1,"defects":{"App\\tests\\Unit\\Controller\\DefaultControllerTest::testIndexReturnsExpectedString":4},"times":{"App\\tests\\Unit\\Controller\\DefaultControllerTest::testIndexReturnsExpectedString":1.482}}
