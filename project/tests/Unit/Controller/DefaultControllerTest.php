@@ -1,6 +1,7 @@
 <?php
 
 namespace App\tests\Unit\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase

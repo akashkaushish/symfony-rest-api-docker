@@ -12,6 +12,6 @@ class DefaultController extends AbstractController
     #[Route('/', name: 'default')]
     public function index(): Response
     {
-       return new Response("we are here to make APIS");
+        return new Response("we are here to make APIS");
     }
 }
