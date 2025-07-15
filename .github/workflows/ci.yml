@@ -14,8 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker (with CI network override)
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d --build
+      - name: Build app container using dev target
+        run: docker compose build --build-arg APP_ENV=dev --target dev app
+
+      - name: Start containers (with CI override)
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+
+      - name: Verify Redis extension availability
+        run: docker compose exec -T app php -m | grep redis || (echo "Redis PHP extension missing!" && exit 1)
 
       - name: Install Composer dependencies inside container
         run: docker compose exec -T app composer install --no-interaction --prefer-dist
